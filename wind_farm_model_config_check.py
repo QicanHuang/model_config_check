@@ -11,13 +11,13 @@ from dateutil import parser
 import algo_data as ad
 
 
-# logging.basicConfig(level=logging.INFO,
-#                     filename='new_600_.log',
-#                     filemode='a',
-#                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logging.basicConfig(level=logging.INFO,
+                    filename='new_600_.log',
+                    filemode='a',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+# logging.basicConfig(level=logging.INFO,
+#                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# logger = logging.getLogger(__name__)
 
 
 # 配置气象限制，只有配置的气象是下面的气象才可以用于预测，否则不能预测
