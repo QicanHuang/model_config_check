@@ -415,28 +415,28 @@ def wind_farm_check(wfid):
         wf_config_check_obj.check_all()
 
 
-def log_static(log_path_list):
-    import pandas as pd
-    db_ = ad.Api(db='WindFarmdb')
-    wf_info = db_.select_joint(table_name='wind_farm_info',
-                               columns='wfid, wfname, administrator, f_type, inspection_state')
-    wf_info_dict = wf_info.set_index(keys=['wfid'], drop=True).to_dict(orient='index')
-
-    static_dict = []
-    for log_path in log_path_list:
-        print(log_path)
-        with open(log_path, 'r+', encoding='gbk') as log_file:
-            for line in log_file.readlines():
-                log_info = line.split('__main__ - INFO - ')
-                if len(log_info) > 1:
-                    error_info = log_info[1].replace('\n', '')
-                    if 'error:' in error_info:
-                        log_info_split = error_info.split(':')
-                        wf_id = log_info_split[1].strip()
-                        static_dict.append({**{'wf_id': wf_id, 'error_info': error_info},
-                                            **wf_info_dict[wf_id]})
-    static_df = pd.DataFrame.from_dict(static_dict)
-    static_df.to_csv('log.csv', index=True, encoding='gbk')
+# def log_static(log_path_list):
+#     import pandas as pd
+#     db_ = ad.Api(db='WindFarmdb')
+#     wf_info = db_.select_joint(table_name='wind_farm_info',
+#                                columns='wfid, wfname, administrator, f_type, inspection_state')
+#     wf_info_dict = wf_info.set_index(keys=['wfid'], drop=True).to_dict(orient='index')
+#
+#     static_dict = []
+#     for log_path in log_path_list:
+#         print(log_path)
+#         with open(log_path, 'r+', encoding='gbk') as log_file:
+#             for line in log_file.readlines():
+#                 log_info = line.split('__main__ - INFO - ')
+#                 if len(log_info) > 1:
+#                     error_info = log_info[1].replace('\n', '')
+#                     if 'error:' in error_info:
+#                         log_info_split = error_info.split(':')
+#                         wf_id = log_info_split[1].strip()
+#                         static_dict.append({**{'wf_id': wf_id, 'error_info': error_info},
+#                                             **wf_info_dict[wf_id]})
+#     static_df = pd.DataFrame.from_dict(static_dict)
+#     static_df.to_csv('log.csv', index=True, encoding='gbk')
 
 
 if __name__ == '__main__':
